@@ -15,4 +15,12 @@ cask 'minikube' do
   binary 'minikube-darwin-amd64', target: 'minikube'
 
   zap trash: '~/.minikube'
+  
+  # Install bash completion
+  output = Utils.popen_read("#{bin}/minikube completion bash")
+  (bash_completion/"minikube").write output
+
+  # Install zsh completion
+  output = Utils.popen_read("#{bin}/minikube completion zsh")
+  (zsh_completion/"_minikube").write output
 end
